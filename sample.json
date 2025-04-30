@@ -1,0 +1,510 @@
+{
+  "chicken": {
+    "ingredient": [
+      "Deselect All",
+      "1 tbsp basil",
+      "1 tbsp garlic",
+      "3 tbsp chicken",
+      "3 tbsp onion",
+      "3 tbsp potato",
+      "2 tbsp butter",
+      "2 tbsp flour",
+      "1 tbsp soy sauce",
+      "1 tbsp beef",
+      "2 tbsp olive oil"
+    ],
+    "step": [
+      "Prepare the chicken by washing and chopping it.",
+      "Heat some olive oil in a pan and add the chicken.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the chicken for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Easy",
+    "total_time": "68 min",
+    "prep_time": "25 min",
+    "cook_time": "22 min",
+    "servings": "5"
+  },
+  "garlic": {
+    "ingredient": [
+      "Deselect All",
+      "1 tbsp sugar",
+      "3 tbsp tomato",
+      "2 tbsp cheese",
+      "3 tbsp basil",
+      "3 tbsp onion",
+      "3 tbsp flour",
+      "1 tbsp egg",
+      "2 tbsp potato",
+      "1 tbsp olive oil",
+      "1 tbsp garlic"
+    ],
+    "step": [
+      "Prepare the garlic by washing and chopping it.",
+      "Heat some olive oil in a pan and add the garlic.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the garlic for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Easy",
+    "total_time": "47 min",
+    "prep_time": "30 min",
+    "cook_time": "32 min",
+    "servings": "6"
+  },
+  "onion": {
+    "ingredient": [
+      "Deselect All",
+      "2 tbsp carrot",
+      "3 tbsp rice",
+      "3 tbsp milk",
+      "3 tbsp salt",
+      "3 tbsp flour",
+      "1 tbsp cheese",
+      "1 tbsp basil",
+      "1 tbsp potato",
+      "2 tbsp lemon"
+    ],
+    "step": [
+      "Prepare the onion by washing and chopping it.",
+      "Heat some olive oil in a pan and add the onion.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the onion for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Hard",
+    "total_time": "104 min",
+    "prep_time": "28 min",
+    "cook_time": "54 min",
+    "servings": "4"
+  },
+  "tomato": {
+    "ingredient": [
+      "Deselect All",
+      "3 tbsp egg",
+      "2 tbsp basil",
+      "3 tbsp butter",
+      "2 tbsp olive oil",
+      "1 tbsp flour",
+      "3 tbsp tomato",
+      "1 tbsp pepper",
+      "3 tbsp potato",
+      "2 tbsp beef"
+    ],
+    "step": [
+      "Prepare the tomato by washing and chopping it.",
+      "Heat some olive oil in a pan and add the tomato.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the tomato for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Easy",
+    "total_time": "41 min",
+    "prep_time": "23 min",
+    "cook_time": "27 min",
+    "servings": "4"
+  },
+  "olive oil": {
+    "ingredient": [
+      "Deselect All",
+      "2 tbsp sugar",
+      "1 tbsp carrot",
+      "3 tbsp chicken",
+      "1 tbsp basil",
+      "2 tbsp salt",
+      "3 tbsp garlic",
+      "3 tbsp flour",
+      "2 tbsp onion"
+    ],
+    "step": [
+      "Prepare the olive oil by washing and chopping it.",
+      "Heat some olive oil in a pan and add the olive oil.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the olive oil for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Intermediate",
+    "total_time": "104 min",
+    "prep_time": "11 min",
+    "cook_time": "47 min",
+    "servings": "5"
+  },
+  "butter": {
+    "ingredient": [
+      "Deselect All",
+      "3 tbsp basil",
+      "3 tbsp rice",
+      "3 tbsp soy sauce",
+      "3 tbsp pepper",
+      "2 tbsp garlic",
+      "1 tbsp egg",
+      "3 tbsp tomato"
+    ],
+    "step": [
+      "Prepare the butter by washing and chopping it.",
+      "Heat some olive oil in a pan and add the butter.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the butter for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Hard",
+    "total_time": "97 min",
+    "prep_time": "12 min",
+    "cook_time": "47 min",
+    "servings": "5"
+  },
+  "lemon": {
+    "ingredient": [
+      "Deselect All",
+      "1 tbsp salt",
+      "2 tbsp sugar",
+      "3 tbsp tomato",
+      "2 tbsp butter",
+      "2 tbsp pepper",
+      "2 tbsp beef",
+      "1 tbsp olive oil"
+    ],
+    "step": [
+      "Prepare the lemon by washing and chopping it.",
+      "Heat some olive oil in a pan and add the lemon.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the lemon for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Hard",
+    "total_time": "84 min",
+    "prep_time": "24 min",
+    "cook_time": "22 min",
+    "servings": "3"
+  },
+  "egg": {
+    "ingredient": [
+      "Deselect All",
+      "2 tbsp carrot",
+      "3 tbsp egg",
+      "3 tbsp garlic",
+      "3 tbsp tomato",
+      "1 tbsp sugar",
+      "3 tbsp beef",
+      "1 tbsp butter"
+    ],
+    "step": [
+      "Prepare the egg by washing and chopping it.",
+      "Heat some olive oil in a pan and add the egg.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the egg for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Hard",
+    "total_time": "57 min",
+    "prep_time": "11 min",
+    "cook_time": "20 min",
+    "servings": "2"
+  },
+  "milk": {
+    "ingredient": [
+      "Deselect All",
+      "3 tbsp rice",
+      "2 tbsp pepper",
+      "2 tbsp flour",
+      "3 tbsp salt",
+      "2 tbsp basil",
+      "3 tbsp onion",
+      "3 tbsp milk",
+      "1 tbsp lemon",
+      "3 tbsp potato"
+    ],
+    "step": [
+      "Prepare the milk by washing and chopping it.",
+      "Heat some olive oil in a pan and add the milk.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the milk for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Hard",
+    "total_time": "54 min",
+    "prep_time": "30 min",
+    "cook_time": "43 min",
+    "servings": "4"
+  },
+  "rice": {
+    "ingredient": [
+      "Deselect All",
+      "1 tbsp rice",
+      "1 tbsp lemon",
+      "3 tbsp garlic",
+      "2 tbsp tomato",
+      "3 tbsp olive oil",
+      "2 tbsp sugar",
+      "2 tbsp butter"
+    ],
+    "step": [
+      "Prepare the rice by washing and chopping it.",
+      "Heat some olive oil in a pan and add the rice.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the rice for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Hard",
+    "total_time": "46 min",
+    "prep_time": "26 min",
+    "cook_time": "22 min",
+    "servings": "5"
+  },
+  "flour": {
+    "ingredient": [
+      "Deselect All",
+      "1 tbsp pepper",
+      "1 tbsp lemon",
+      "3 tbsp sugar",
+      "1 tbsp soy sauce",
+      "3 tbsp tomato",
+      "2 tbsp milk",
+      "1 tbsp egg",
+      "2 tbsp flour"
+    ],
+    "step": [
+      "Prepare the flour by washing and chopping it.",
+      "Heat some olive oil in a pan and add the flour.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the flour for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Easy",
+    "total_time": "41 min",
+    "prep_time": "30 min",
+    "cook_time": "44 min",
+    "servings": "3"
+  },
+  "sugar": {
+    "ingredient": [
+      "Deselect All",
+      "2 tbsp potato",
+      "3 tbsp flour",
+      "2 tbsp egg",
+      "2 tbsp chicken",
+      "2 tbsp carrot",
+      "2 tbsp basil",
+      "3 tbsp lemon",
+      "1 tbsp olive oil",
+      "2 tbsp milk"
+    ],
+    "step": [
+      "Prepare the sugar by washing and chopping it.",
+      "Heat some olive oil in a pan and add the sugar.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the sugar for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Easy",
+    "total_time": "62 min",
+    "prep_time": "25 min",
+    "cook_time": "55 min",
+    "servings": "4"
+  },
+  "pepper": {
+    "ingredient": [
+      "Deselect All",
+      "2 tbsp sugar",
+      "2 tbsp egg",
+      "1 tbsp rice",
+      "3 tbsp beef",
+      "1 tbsp garlic",
+      "2 tbsp salt"
+    ],
+    "step": [
+      "Prepare the pepper by washing and chopping it.",
+      "Heat some olive oil in a pan and add the pepper.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the pepper for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Easy",
+    "total_time": "88 min",
+    "prep_time": "14 min",
+    "cook_time": "42 min",
+    "servings": "2"
+  },
+  "salt": {
+    "ingredient": [
+      "Deselect All",
+      "3 tbsp cheese",
+      "1 tbsp egg",
+      "1 tbsp salt",
+      "3 tbsp pepper",
+      "3 tbsp basil",
+      "2 tbsp lemon",
+      "2 tbsp tomato",
+      "2 tbsp olive oil",
+      "1 tbsp chicken"
+    ],
+    "step": [
+      "Prepare the salt by washing and chopping it.",
+      "Heat some olive oil in a pan and add the salt.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the salt for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Intermediate",
+    "total_time": "31 min",
+    "prep_time": "16 min",
+    "cook_time": "33 min",
+    "servings": "5"
+  },
+  "basil": {
+    "ingredient": [
+      "Deselect All",
+      "3 tbsp pepper",
+      "1 tbsp carrot",
+      "1 tbsp potato",
+      "1 tbsp salt",
+      "2 tbsp milk",
+      "1 tbsp egg",
+      "1 tbsp onion",
+      "2 tbsp olive oil",
+      "3 tbsp butter",
+      "2 tbsp soy sauce"
+    ],
+    "step": [
+      "Prepare the basil by washing and chopping it.",
+      "Heat some olive oil in a pan and add the basil.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the basil for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Intermediate",
+    "total_time": "69 min",
+    "prep_time": "10 min",
+    "cook_time": "55 min",
+    "servings": "2"
+  },
+  "cheese": {
+    "ingredient": [
+      "Deselect All",
+      "1 tbsp egg",
+      "1 tbsp milk",
+      "2 tbsp soy sauce",
+      "2 tbsp onion",
+      "1 tbsp olive oil",
+      "1 tbsp butter",
+      "2 tbsp garlic",
+      "1 tbsp salt"
+    ],
+    "step": [
+      "Prepare the cheese by washing and chopping it.",
+      "Heat some olive oil in a pan and add the cheese.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the cheese for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Easy",
+    "total_time": "66 min",
+    "prep_time": "28 min",
+    "cook_time": "23 min",
+    "servings": "2"
+  },
+  "carrot": {
+    "ingredient": [
+      "Deselect All",
+      "1 tbsp potato",
+      "3 tbsp beef",
+      "1 tbsp olive oil",
+      "2 tbsp sugar",
+      "2 tbsp tomato",
+      "3 tbsp carrot",
+      "1 tbsp lemon",
+      "3 tbsp egg"
+    ],
+    "step": [
+      "Prepare the carrot by washing and chopping it.",
+      "Heat some olive oil in a pan and add the carrot.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the carrot for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Easy",
+    "total_time": "63 min",
+    "prep_time": "21 min",
+    "cook_time": "32 min",
+    "servings": "6"
+  },
+  "beef": {
+    "ingredient": [
+      "Deselect All",
+      "3 tbsp olive oil",
+      "3 tbsp potato",
+      "3 tbsp tomato",
+      "2 tbsp garlic",
+      "1 tbsp sugar",
+      "1 tbsp beef",
+      "2 tbsp flour",
+      "1 tbsp onion",
+      "2 tbsp cheese"
+    ],
+    "step": [
+      "Prepare the beef by washing and chopping it.",
+      "Heat some olive oil in a pan and add the beef.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the beef for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Easy",
+    "total_time": "37 min",
+    "prep_time": "24 min",
+    "cook_time": "23 min",
+    "servings": "6"
+  },
+  "potato": {
+    "ingredient": [
+      "Deselect All",
+      "3 tbsp carrot",
+      "3 tbsp cheese",
+      "3 tbsp butter",
+      "2 tbsp milk",
+      "3 tbsp potato",
+      "3 tbsp soy sauce",
+      "2 tbsp pepper",
+      "3 tbsp garlic"
+    ],
+    "step": [
+      "Prepare the potato by washing and chopping it.",
+      "Heat some olive oil in a pan and add the potato.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the potato for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Hard",
+    "total_time": "37 min",
+    "prep_time": "10 min",
+    "cook_time": "23 min",
+    "servings": "2"
+  },
+  "soy sauce": {
+    "ingredient": [
+      "Deselect All",
+      "2 tbsp butter",
+      "3 tbsp lemon",
+      "1 tbsp soy sauce",
+      "3 tbsp flour",
+      "3 tbsp potato",
+      "1 tbsp beef",
+      "1 tbsp tomato",
+      "1 tbsp chicken",
+      "2 tbsp carrot",
+      "3 tbsp rice"
+    ],
+    "step": [
+      "Prepare the soy sauce by washing and chopping it.",
+      "Heat some olive oil in a pan and add the soy sauce.",
+      "Add salt, pepper, and other spices to taste.",
+      "Cook the soy sauce for about 15 minutes until tender.",
+      "Serve hot with a garnish of fresh herbs."
+    ],
+    "level": "Easy",
+    "total_time": "59 min",
+    "prep_time": "23 min",
+    "cook_time": "59 min",
+    "servings": "6"
+  }
+}
