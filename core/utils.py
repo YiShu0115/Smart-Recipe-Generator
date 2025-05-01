@@ -1,10 +1,8 @@
 # core/utils.py
-
+from llama_index.core.memory import ChatMemoryBuffer
 from llama_index.llms.ollama import Ollama
 from fractions import Fraction
 import re
-import re
-from llama_index.core.memory import ChatMemoryBuffer
 
 def extract_number_from_text(text):
     match = re.search(r"\d+", text)
@@ -15,6 +13,7 @@ def get_last_mentioned_recipe(memory: ChatMemoryBuffer) -> str:
         if 'recipe_name' in msg.additional_kwargs:
             return msg.additional_kwargs['recipe_name']
     return None
+
 
 # 用 Ollama 模型提取关键词（最多3个关键词）
 def get_keywords_from_llama(query: str, model="tinyllama:1.1b") -> list:
