@@ -63,8 +63,8 @@ def keyword_search_recipe(req: QueryRequest):
     return {"answer": result}
 
 @app.post("/suggest")
-def suggest_recipe(req: IngredientsRequest):
-    result = suggest_recipes_by_ingredients(req.ingredients, index)
+def suggest_recipe_from_query(req: QueryRequest):
+    result = suggest_recipes_by_query(req.query, index)
     return {"suggestions": result}
 
 @app.post("/similar")
