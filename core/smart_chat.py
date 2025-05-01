@@ -2,13 +2,13 @@ from core.utils import get_keywords_from_llama, extract_number_from_text
 from core.query import suggest_recipes_by_ingredients, find_similar_recipes
 from core.utils import scale_ingredients, get_last_mentioned_recipe
 from llama_index.core import Settings
-from ollama import Ollama
+from llama_index.llms.ollama import Ollama
 
-# 初始化一个轻量问答判断模型（也可以用 Settings.llm）
+# 初始化一个轻量问答判断模型
 llm_router = Ollama(model="tinyllama:1.1b", request_timeout=300.0)
 
 def classify_query(query: str) -> str:
-    """使用 LLM 判断 query 类型：recommend, similar, scale, chat"""
+    """使用 LLM 判断 query 类型: recommend, similar, scale, chat"""
     prompt = (
         f"You are a smart assistant. Classify the user's question into one of the categories:\n"
         f"- recommend (if user wants recipe suggestions based on ingredients or keywords)\n"
@@ -27,8 +27,11 @@ def classify_query(query: str) -> str:
         return "scale"
     return "chat"
 
-def smart_chat_turn(query: str, chat_engine, index, embed_model) -> str:
+def smart_chat_turn(query: str, chat_engine, index, embed_model=None) -> str:
     label = classify_query(query)
+    print(f"[INFO] Detected label: {label}")
+    if embed_model == None:
+        embed_model = Settings.embed_model
     
     if label == "recommend":
         keywords = get_keywords_from_llama(query)
