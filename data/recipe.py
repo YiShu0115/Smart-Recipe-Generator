@@ -1,152 +1,188 @@
 import nltk
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
-import numpy
 import json
-import re
-import pandas as pd
-from collections import Counter
 import requests
 from bs4 import BeautifulSoup
-import spacy
-from nltk import pos_tag
-from nltk import RegexpParser
-from fractions import Fraction
-from transformers import pipeline
-import tkinter as tk
-import customtkinter
-from functools import partial 
-import pyttsx3
-import tkinter as tk
-import customtkinter
-import speech_recognition as sr
-
+import time
+import random
+from fake_useragent import UserAgent
 
 recipe = {}
 global_dish = ''
-def get_recipe_details(dish_list, output_file='recipe.json'):
+def extract_recipe_details(soup):
+    details = {
+        'level': None,
+        'total_time': None,
+        'prep_time': None,
+        'cook_time': None,
+        'servings': None
+    }
+    
+    # 提取servings
+    yield_heading = soup.find('span', class_='o-RecipeInfo__a-Headline', string='Yield:')
+    if yield_heading:
+        details['servings'] = yield_heading.find_next_sibling('span', class_='o-RecipeInfo__a-Description').text.strip()
+    
+    # 提取难度级别
+    level_heading = soup.find('span', class_='o-RecipeInfo__a-Headline', string='Level:')
+    if level_heading:
+        details['level'] = level_heading.find_next_sibling('span', class_='o-RecipeInfo__a-Description').text.strip()
+    
+    # 提取总时间
+    total_time_heading = soup.find('span', class_='o-RecipeInfo__a-Headline m-RecipeInfo__a-Headline--Total', string='Total:')
+    if total_time_heading:
+        details['total_time'] = total_time_heading.find_next_sibling('span', class_='o-RecipeInfo__a-Description').text.strip()
+    
+    # 提取准备时间
+    prep_time_heading = soup.find('span', class_='o-RecipeInfo__a-Headline', string='Prep:')
+    if prep_time_heading:
+        details['prep_time'] = prep_time_heading.find_next_sibling('span', class_='o-RecipeInfo__a-Description').text.strip()
+
+    # 提取等待时间
+    prep_time_heading = soup.find('span', class_='o-RecipeInfo__a-Headline', string='Inactive:')
+    if prep_time_heading:
+        details['inactive_time'] = prep_time_heading.find_next_sibling('span', class_='o-RecipeInfo__a-Description').text.strip()
+    
+    # 提取烹饪时间
+    cook_time_heading = soup.find('span', class_='o-RecipeInfo__a-Headline', string='Cook:')
+    if cook_time_heading:
+        details['cook_time'] = cook_time_heading.find_next_sibling('span', class_='o-RecipeInfo__a-Description').text.strip()
+
+    # 找到营养信息表格
+    nutrition_table = soup.find('dl', class_='m-NutritionTable_a-Content')
+    if not nutrition_table:
+        return details
+    
+    return details
+
+
+import time
+import random
+from fake_useragent import UserAgent
+
+def get_recipe_details(dish_list, max_results=8, output_file='recipe.json'):
     """
-    获取多个菜品的详细信息
+    获取多个菜品的详细信息，每个菜品保留多个菜谱结果
     参数:
         dish_list: 可以是一个字符串(单个菜品)或列表(多个菜品)
+        max_results: 每个菜品保留的最大结果数(默认为3)
+        output_file: 结果保存的文件名
     返回:
-        包含所有菜品详细信息的字典
+        包含所有菜谱详细信息的字典，key为recipe_name
     """
+    # 初始化随机User-Agent生成器
+    ua = UserAgent()
+    
     # 如果输入是单个字符串，转换为列表
     if isinstance(dish_list, str):
         dish_list = [dish_list]
     
-    recipes = {}  # 存储所有菜品的字典
+    all_recipes = {}  # 存储所有菜谱的字典
     
     for dish in dish_list:
-        ingredient_list = []
-        step_list = []
-        level = '-'
-        total_time = '-'
-        prep_time = '-'
-        cook_time = '-'
-        servings = '-'
-
-        dish_to_search = ''
-        split_text = dish.split(' ')
-        for i in split_text:
-            dish_to_search += i
-            dish_to_search += '-'
-        
+        dish_to_search = '-'.join(dish.split(' '))
         print(f"正在搜索: {dish_to_search}")
         
         try:
-            # 搜索菜品在foodnetwork网站
-            URL = f"https://www.foodnetwork.com/search/{dish_to_search}"
+            # 设置随机请求头和延迟
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Referer': 'https://www.foodnetwork.com/',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate'
             }
-            response = requests.get(URL, headers=headers)
-            response.encoding = 'utf-8'
+            
+            # 随机延迟1-3秒
+            time.sleep(random.uniform(3, 5))
+
+            # 搜索菜品
+            URL = f"https://www.foodnetwork.com/search/{dish_to_search}-"
+            session = requests.Session()
+            session.headers.update(headers)
+            response = session.get(URL)
+            # response = requests.get(URL, headers=headers)
+            response.raise_for_status()
             soup = BeautifulSoup(response.text, 'html.parser')
 
-            # 提取所有食谱链接
-            recipe_result_list = soup.find_all('div', {'class': 'm-MediaBlock__m-TextWrap'})
+            # 提取所有食谱链接 - 使用更稳健的选择器
             recipe_links = []
-            
-            for i in recipe_result_list:
-                if i.find('span', {'class': 'm-Info__a-SubHeadline'}) is not None:
-                    is_result_recipe = i.find('span', {'class': 'm-Info__a-SubHeadline'}).text.strip() == 'Recipe'
-                    if is_result_recipe:
-                        recipe_link_tag = i.find('h3', {'class': 'm-MediaBlock__a-Headline'})
-                        recipe_links.append('https:' + recipe_link_tag.find('a')['href'])
+            for item in soup.select('div.m-MediaBlock__m-TextWrap'):
+                if item.find('span', class_='m-Info__a-SubHeadline', string='Recipe'):
+                    link_tag = item.find('a', href=True)
+                    if link_tag:
+                        recipe_links.append('https:' + link_tag['href'])
 
             if not recipe_links:
                 print(f"未找到 {dish} 的食谱链接")
                 continue
 
-            recipe_link_url = recipe_links[0]
-            print(f"找到食谱链接: {recipe_link_url}")
+            # 限制结果数量
+            recipe_links = recipe_links[:max_results]
+            print(f"为 {dish} 找到 {len(recipe_links)} 个食谱链接")
 
-            # 获取食谱详情页
-            response = requests.get(recipe_link_url, headers=headers)
-            soup = BeautifulSoup(response.text, 'html.parser')
-            
-            # 从<a>标签的title属性提取菜谱名称
-            span_tag = soup.find('span', class_="m-MediaBlock__a-HeadlineText")
-            # 提取文本内容
-            if span_tag:
-                recipe_name = span_tag.get_text(strip=True)
-                
-            # 提取时间和服务信息
-            time_serving_details = soup.find_all('span', {'class': 'o-RecipeInfo__a-Description'})
-            if time_serving_details:
-                # 处理不同格式的时间信息
-                if len(time_serving_details) >= 6:
-                    level = time_serving_details[0].text.strip()
-                    total_time = time_serving_details[1].text.strip()
-                    prep_time = time_serving_details[2].text.strip() + '+' + time_serving_details[3].text.strip()
-                    cook_time = time_serving_details[4].text.strip()
-                    servings = time_serving_details[5].text.strip()
-                elif len(time_serving_details) >= 5:
-                    level = time_serving_details[0].text.strip()
-                    total_time = time_serving_details[1].text.strip()
-                    prep_time = time_serving_details[2].text.strip()
-                    cook_time = time_serving_details[3].text.strip()
-                    servings = time_serving_details[4].text.strip()
-                else:
-                    level = time_serving_details[0].text.strip()
-                    total_time = time_serving_details[1].text.strip()
-                    cook_time = time_serving_details[2].text.strip()
-                    servings = time_serving_details[3].text.strip()
+            for link in recipe_links:
+                try:
+                    # 随机延迟
+                    time.sleep(random.uniform(3,5))
+                    
+                    # 获取食谱详情页
+                    headers['User-Agent'] = ua.random  # 更换User-Agent
+                    response = requests.get(link, headers=headers)
+                    response.raise_for_status()
+                    soup = BeautifulSoup(response.text, 'html.parser')
 
-            # 提取配料
-            ingredients = soup.find_all('span', {'class': 'o-Ingredients__a-Ingredient--CheckboxLabel'})
-            ingredient_list = [ingredient.text.strip() for ingredient in ingredients]
-            if ingredient_list:
-                del ingredient_list[0]  # 删除第一个元素(通常是标题)
+                    # 提取菜谱名称 - 更稳健的提取方式
+                    recipe_name = None
+                    name_tag = soup.find('h1', class_='o-AssetTitle__a-Headline') or \
+                               soup.find('span', class_='m-MediaBlock__a-HeadlineText')
+                    if name_tag:
+                        recipe_name = name_tag.get_text(strip=True)
+                    
+                    if not recipe_name:
+                        print(f"无法提取菜谱名称，跳过: {link}")
+                        continue
+                    
+                    # 确保名称唯一
+                    if recipe_name in all_recipes:
+                        recipe_name = f"{recipe_name} ({dish})"
 
-            # 提取步骤
-            steps = soup.find_all('li', {'class': 'o-Method__m-Step'})
-            step_list = [step.text.strip() for step in steps]
+                    # 提取时间和服务信息
+                    recipe_details = extract_recipe_details(soup)
+                    print(recipe_details)
 
-            # 添加到结果字典
-            recipes[dish] = {
-                'recipe_name':recipe_name,
-                'ingredient': ingredient_list,
-                'step': step_list,
-                'level': level,
-                'total_time': total_time,
-                'prep_time': prep_time,
-                'cook_time': cook_time,
-                'servings': servings,
-                'source_url': recipe_link_url
-            }
+                    # 提取配料
+                    ingredients = []
+                    for ing in soup.select('span.o-Ingredients__a-Ingredient--CheckboxLabel'):
+                        text = ing.get_text(strip=True)
+                        if text and not text.lower().startswith(('recipe', 'ingredients')):
+                            ingredients.append(text)
+
+                    # 提取步骤
+                    steps = [step.get_text(strip=True) 
+                            for step in soup.select('li.o-Method__m-Step') if step.get_text(strip=True)]
+
+                    # 添加到结果字典
+                    all_recipes[recipe_name] = {
+                        'search_item': dish,
+                        'ingredients': ingredients,
+                        'steps': steps,
+                        **recipe_details,
+                        'source_url': link
+                    }
+
+                except Exception as e:
+                    print(f"处理链接 {link} 时出错: {str(e)}")
+                    continue
 
         except Exception as e:
-            print(f"处理 {dish} 时出错: {str(e)}")
-            recipes[dish] = {'error': str(e)}
-            # 保存结果到JSON文件
+            print(f"搜索 {dish} 时出错: {str(e)}")
+            continue
+    
+    # 保存结果到JSON文件
     with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(recipes, f, ensure_ascii=False, indent=2)
+        json.dump(all_recipes, f, ensure_ascii=False, indent=2)
     
-    print(f"结果已保存到 {output_file}")
-    
-    return recipes
-
-
+    print(f"成功保存 {len(all_recipes)} 个菜谱到 {output_file}")
+    return all_recipes
