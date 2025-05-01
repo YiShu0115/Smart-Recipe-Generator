@@ -7,25 +7,52 @@ from llama_index.llms.ollama import Ollama
 # 初始化一个轻量问答判断模型
 llm_router = Ollama(model="tinyllama:1.1b", request_timeout=300.0)
 
+# def classify_query(query: str) -> str:
+#     """使用 LLM 判断 query 类型: recommend, similar, scale, chat"""
+#     prompt = (
+#         f"You are a smart assistant. Classify the user's question into one of the categories:\n"
+#         f"- recommend (if user wants recipe suggestions based on ingredients or keywords)\n"
+#         f"- similar (if user wants similar dishes)\n"
+#         f"- scale (if user asks about changing servings or quantities)\n"
+#         f"- chat (default for everything else)\n\n"
+#         f"User question: {query}\n"
+#         f"Answer format: label: <category>"
+#     )
+#     response = llm_router.complete(prompt).text.strip().lower()
+#     if "recommend" in response:
+#         return "recommend"
+#     if "similar" in response:
+#         return "similar"
+#     if "scale" in response:
+#         return "scale"
+#     return "chat"
+
+import re
+
 def classify_query(query: str) -> str:
-    """使用 LLM 判断 query 类型: recommend, similar, scale, chat"""
     prompt = (
-        f"You are a smart assistant. Classify the user's question into one of the categories:\n"
-        f"- recommend (if user wants recipe suggestions based on ingredients or keywords)\n"
-        f"- similar (if user wants similar dishes)\n"
-        f"- scale (if user asks about changing servings or quantities)\n"
-        f"- chat (default for everything else)\n\n"
+        "You are a smart assistant. Classify the user's question into one of the categories:\n"
+        "- recommend (if user wants recipe suggestions based on ingredients or keywords)\n"
+        "- similar (if user wants similar dishes)\n"
+        "- scale (if user asks about changing servings or quantities)\n"
+        "- chat (default for everything else)\n\n"
+        "Examples:\n"
+        "User question: What can I cook with chicken and potatoes?\nAnswer format: label: recommend\n"
+        "User question: Show me dishes similar to Kung Pao Chicken.\nAnswer format: label: similar\n"
+        "User question: Change the cake recipe for 12 people instead of 4.\nAnswer format: label: scale\n"
+        "User question: Who invented the hamburger?\nAnswer format: label: chat\n\n"
         f"User question: {query}\n"
-        f"Answer format: label: <category>"
+        "Answer format: label: <category>"
     )
     response = llm_router.complete(prompt).text.strip().lower()
-    if "recommend" in response:
-        return "recommend"
-    if "similar" in response:
-        return "similar"
-    if "scale" in response:
-        return "scale"
+    print(f'[DEBUG] LLM raw response: {response}')
+    match = re.search(r'label:\s*(\w+)', response)
+    if match:
+        label = match.group(1)
+        if label in {"recommend", "similar", "scale", "chat"}:
+            return label
     return "chat"
+
 
 def smart_chat_turn(query: str, chat_engine, index, embed_model=None) -> str:
     label = classify_query(query)
