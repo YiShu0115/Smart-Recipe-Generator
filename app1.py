@@ -120,3 +120,20 @@ async def unified_query(req: UnifiedRequest):
     else:  # 默认为聊天
         result = chat_turn(req.query, chat_engine)
         return {"intent": "chat", "result": result}
+
+# 导出初始化好的对象
+def get_initialized_objects():
+    return {
+        "index": index,
+        "chat_engine": chat_engine,
+        "settings": Settings
+    }
+
+# 确保这些对象可以被导入
+__all__ = [
+    'get_initialized_objects',
+    'detect_intent',
+    'extract_ingredients',
+    'extract_scale_factor',
+    'UnifiedRequest'
+]
