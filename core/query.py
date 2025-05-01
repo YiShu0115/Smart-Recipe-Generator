@@ -93,7 +93,29 @@ def suggest_recipes_by_query(query: str, index, model: str = "tinyllama:1.1b", t
     return "\n".join(result_descriptions) if result_descriptions else "No matching recipes found."
 
 
+def suggest_recipes_by_ingredients(available_ingredients, index, top_k=3):
+    docstore = index.storage_context.docstore
+    nodes = list(docstore.docs.values())
 
+    matches = []
+    for node in nodes:
+        recipe_name = node.metadata.get("recipe_name", "Unknown")
+        if "Ingredients:" in node.text and "Steps:" in node.text:
+            ingredients_section = node.text.split("Ingredients:")[1].split("Steps:")[0]
+            score = sum(1 for ing in available_ingredients if ing.lower() in ingredients_section.lower())
+            if score > 0:
+                matches.append((recipe_name, score))
+
+    matches.sort(key=lambda x: x[1], reverse=True)
+
+    if not matches:
+        return "Sorry, I couldn't find any recipes matching your ingredients."
+
+    response_lines = [
+        f"- I recommend trying '{name}', which matches {score} of your ingredients."
+        for name, score in matches[:top_k]
+    ]
+    return "\n".join(response_lines)
 
 # 找与某道菜相似的其它菜
 def find_similar_recipes(target_name, index, embed_model, top_k=3):
