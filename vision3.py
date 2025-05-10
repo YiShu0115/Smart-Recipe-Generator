@@ -68,17 +68,32 @@ def apply_custom_style():
 def initialize_system():
     if "system_initialized" not in st.session_state:
         with st.spinner("🚀 Initializing AI Recipe System..."):
-            with open("sample.json", 'r', encoding='utf-8') as f:
-                recipe_data = json.load(f)
-
+            # 设置模型
             Settings.llm = Ollama(model="qwen:7b", request_timeout=600.0)
             Settings.embed_model = get_embed_model("nomic-embed-text")
             Settings.chunk_size = 1024
-
-            documents = prepare_documents(recipe_data)
-            st.session_state.index = build_index(documents)
             
-            st.session_state.chat_engine = init_chat_engine(st.session_state.index)
+            # 检查是否存在预生成的索引
+            import os
+            if os.path.exists("./data/index_storage"):
+                # 加载预生成的索引
+                from llama_index.core import StorageContext, load_index_from_storage
+                
+                st.info("Loading pre-built index...")
+                storage_context = StorageContext.from_defaults(
+                    persist_dir="./data/index_storage"
+                )
+                st.session_state.index = load_index_from_storage(storage_context)
+                st.session_state.chat_engine = init_chat_engine(st.session_state.index)
+            else:
+                # 如果没有预生成的索引，则即时构建
+                st.warning("No pre-built index found. Building index on-the-fly...")
+                with open("data/recipe.json", 'r', encoding='utf-8') as f:
+                    recipe_data = json.load(f)
+                
+                documents = prepare_documents(recipe_data)
+                st.session_state.index = build_index(documents)
+                st.session_state.chat_engine = init_chat_engine(st.session_state.index)
 
             st.session_state.system_initialized = True
             st.rerun()

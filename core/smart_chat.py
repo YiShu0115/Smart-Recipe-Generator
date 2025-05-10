@@ -3,10 +3,6 @@ from core.query import suggest_recipes_by_ingredients, find_similar_recipes
 from core.utils import scale_ingredients, get_last_mentioned_recipe
 from llama_index.core import Settings
 from llama_index.llms.ollama import Ollama
-import logging
-
-# 配置日志系统
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # 初始化一个轻量问答判断模型
 llm_router = Ollama(model="tinyllama:1.1b", request_timeout=300.0)
@@ -51,7 +47,7 @@ def classify_query(query: str) -> str:
         "Answer format: label: <category>"
     )
     response = llm_router.complete(prompt).text.strip().lower()
-    logging.debug(f'LLM raw response: {response}')
+    print(f'[DEBUG] LLM raw response: {response}')
     match = re.search(r'label:\s*(\w+)', response)
     if match:
         label = match.group(1)
@@ -62,7 +58,7 @@ def classify_query(query: str) -> str:
 
 def smart_chat_turn(query: str, chat_engine, index, embed_model=None) -> str:
     label = classify_query(query)
-    logging.info(f"Detected label: {label}")
+    print(f"[INFO] Detected label: {label}")
     if embed_model == None:
         embed_model = Settings.embed_model
     
